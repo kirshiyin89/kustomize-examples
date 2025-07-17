@@ -1,0 +1,12 @@
+resources:
+  - ../../base/prometheus
+
+patches:
+  - path: label-patch.yaml
+    target:
+      kind: Deployment
+      name: prometheus-server
+  - path: service-patch.yaml
+    target:
+      kind: Service
+      name: prometheus-server
