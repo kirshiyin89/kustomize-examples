@@ -1,0 +1,7 @@
+resources:
+  - ../../overlays/helm-base/nginx/
+
+patches:
+  - path: add-annotation.yaml
+    target:
+      kind: Deployment
