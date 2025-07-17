@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webapp
+    environment: development
+    managed-by: kustomize
+  name: dev-webapp-service
+  namespace: webapp-dev
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: webapp
+    environment: development
+    managed-by: kustomize
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webapp
+    environment: development
+    managed-by: kustomize
+    version: v1
+  name: dev-webapp
+  namespace: webapp-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+      environment: development
+      managed-by: kustomize
+  template:
+    metadata:
+      labels:
+        app: webapp
+        environment: development
+        managed-by: kustomize
+        version: v1
+    spec:
+      containers:
+      - image: nginx:1.21
+        imagePullPolicy: IfNotPresent
+        name: webapp
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
