@@ -1,5 +1,5 @@
 resources:
-  - ../../overlays/helm-base/nginx/
+  - ../../helm-base/nginx/
 
 patches:
   - path: add-annotation.yaml
